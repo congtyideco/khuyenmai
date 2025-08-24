@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHUONG TRINH KHUYEN MAI</title>
+    <style>
+        #application-container {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    #application-container .ctmk-icon {
+    position: fixed;
+    top: 65px;                     /* Đã chỉnh lại top */
+    right: 910px;
+    width: 155px;
+    height: 46px;
+    background-color: red;        /* Nền đỏ */
+    color: white;                 /* Chữ trắng */
+    border: 2px solid white;      /* Viền trắng */
+    border-radius: 12px;          /* Bo tròn góc cho đẹp */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    animation: shadowPulse 2s infinite ease-in-out; /* Bóng động */
+}
+
+/* Hiệu ứng bóng động */
+@keyframes shadowPulse {
+    0% {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+    100% {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+}
+
+
+
+        #application-container .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1200px;
+            height: 750px;
+            background-color: white;
+            border: 2px solid red;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        #application-container .popup-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #application-container .re-popup {
+            width: 1200px;
+            height: 750px;
+            background-color: white;
+            border: 2px solid black;
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: auto;
+        }
+
+        #application-container .form-group {
+            margin-bottom: 10px;
+        }
+
+        #application-container .editor-toolbar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        #application-container .editor {
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            min-height: 300px;
+            overflow-y: auto;
+        }
+
+        #application-container .editor-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #application-container textarea {
+            resize: none;
+        }
+
+        #application-container .image-container {
+            display: block;
+        }
+
+        #application-container .image-container div {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #application-container .image-container img {
+            max-height: calc(750px - 40px - 1cm);
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            margin-top: 1cm;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            #application-container .popup, #application-container .re-popup {
+                width: 95%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="application-container">
+    <div class="ctmk-icon" onclick="toggleMainPopup()">CTKM- SP GIÁ MỚI VAT 8%</div>
+
+    <div id="main-popup" class="popup">
+        <div class="popup-header">NỖI DỤNG CHƯƠNG TRÌNH KÉO DÀI ĐẾN 31 THÁNG 10.25 </div>
+        <button onclick="closePopup('main-popup')" style="align-self: flex-end;">Đóng</button>
+        <div class="image-container">
+            <div>
+                <h4>Chương trình khuyến mãi nhóm UVS móng- tóc đến tháng 31.10 </h4>
+                <img src="https://cdn.imgpile.com/f/eG6wRq3_xl.jpg" alt="Chương trình khuyến mãi áp dụng đến 31.10">
+            </div>
+            
+			<div>
+                <h4>Thông báo Nhóm mỹ phẩm UVS -Dầu gội phụ bạc giá mới - VAT 8% </h4>
+                <img src="https://cdn.imgpile.com/f/U954QnA_xl.jpg" alt="Chương trình khuyến mãi 2">
+            </div>
+			
+			
+			
+			
+            <div>
+                <h4>Báo giá bán thẵng UVS Cremelas nếu kh yêu cầu sau:</h4>
+                <img src="https://cdn.imgpile.com/f/TNmw4Fg_xl.jpg" alt="Chương trình khuyến mãi 3">
+            </div>
+            
+        <button onclick="showPopup('re-popup')">Bấm vào báo cáo nghiệm thụ chương trình KM kết thúc</button>
+    </div>
+
+    <div id="re-popup" class="re-popup">
+        <div class="popup-header">Báo cáo nghiệm thu kết thúc khuyến mại</div>
+        <form id="report-form">
+            <div class="form-group">
+                <label for="name">Họ Tên :</label>
+                <input type="text" id="name" name="name" style="width: 100%;">
+            </div>
+            <div class="form-group">
+                <label for="department">Bộ phận:</label>
+                <input type="text" id="department" name="department" style="width: 100%;">
+            </div>
+            <div class="form-group">
+                <label for="date">Ngày lập:</label>
+                <input type="date" id="date" name="date" style="width: 100%;">
+            </div>
+            <div class="form-group">
+                <label for="program">Báo cáo giải trình kết thúc CTMK :</label>
+                <textarea id="program" name="program" style="width: 100%; height: 100px;"></textarea>
+            </div>
+        </form>
+        <div class="editor-toolbar">
+            <select onchange="execCommand('fontName', this.value)">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Verdana">Verdana</option>
+            </select>
+            <select onchange="execCommand('fontSize', this.value)">
+                <option value="1">10px</option>
+                <option value="2">13px</option>
+                <option value="3">16px</option>
+                <option value="4">18px</option>
+                <option value="5">24px</option>
+            </select>
+            <button onclick="execCommand('bold')">B</button>
+            <button onclick="execCommand('italic')">I</button>
+            <button onclick="execCommand('underline')">U</button>
+            <button onclick="execCommand('strikeThrough')">S</button>
+            <button onclick="execCommand('justifyLeft')">Left</button>
+            <button onclick="execCommand('justifyCenter')">Center</button>
+            <button onclick="execCommand('justifyRight')">Right</button>
+            <button onclick="execCommand('insertOrderedList')">1.</button>
+            <button onclick="execCommand('insertUnorderedList')">•</button>
+            <input type="color" onchange="execCommand('foreColor', this.value)">
+        </div>
+        <div class="editor" contenteditable="true">Nhập nội dung báo cáo tại đây...</div>
+        <div class="editor-buttons">
+            <button onclick="saveReport()">Lưu JSON</button>
+            <button onclick="loadReport()">Mở JSON</button>
+            <button onclick="exportHTML()">Xuất HTML</button>
+            <button onclick="closePopup('re-popup')">Đóng</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let isMainPopupVisible = false;
+
+    function toggleMainPopup() {
+        const mainPopup = document.getElementById('main-popup');
+        isMainPopupVisible = !isMainPopupVisible;
+        mainPopup.style.display = isMainPopupVisible ? 'flex' : 'none';
+    }
+
+    function showPopup(id) {
+        const popup = document.getElementById(id);
+        if (popup) {
+            popup.style.display = 'flex';
+        } else {
+            console.error(`Popup with ID "${id}" not found.`);
+        }
+    }
+
+    function closePopup(id) {
+        const popup = document.getElementById(id);
+        if (popup) {
+            popup.style.display = 'none';
+        } else {
+            console.error(`Popup with ID "${id}" not found.`);
+        }
+    }
+
+    function execCommand(command, value = null) {
+        document.execCommand(command, false, value);
+    }
+
+    function saveReport() {
+        const content = document.querySelector('.editor').innerHTML;
+        const blob = new Blob([JSON.stringify({ content })], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'report.json';
+        a.click();
+    }
+
+    function loadReport() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'application/json';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                const data = JSON.parse(reader.result);
+                document.querySelector('.editor').innerHTML = data.content;
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+
+    function exportHTML() {
+        const name = document.getElementById('name').value || 'NoName';
+        const department = document.getElementById('department').value || 'NoDepartment';
+        const date = document.getElementById('date').value || 'NoDate';
+        const content = document.querySelector('.editor').innerHTML;
+        const blob = new Blob([content], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `${name}-${department}-CTMK.${date}.html`;
+        a.click();
+    }
+</script>
+
+</body>
+</html>

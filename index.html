@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHUONG TRINH KHUYEN MAI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         #application-container {
             font-family: Arial, sans-serif;
@@ -12,38 +13,62 @@
             box-sizing: border-box;
         }
 
-    #application-container .ctmk-icon {
-    position: fixed;
-    top: 65px;                     /* Đã chỉnh lại top */
-    right: 910px;
-    width: 155px;
-    height: 46px;
-    background-color: red;        /* Nền đỏ */
-    color: white;                 /* Chữ trắng */
-    border: 2px solid white;      /* Viền trắng */
-    border-radius: 12px;          /* Bo tròn góc cho đẹp */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    animation: shadowPulse 2s infinite ease-in-out; /* Bóng động */
-}
+        #application-container .icons-container {
+            position: fixed;
+            top: 65px;
+            right: 910px;
+            display: flex;
+            gap: 10px;
+        }
 
-/* Hiệu ứng bóng động */
-@keyframes shadowPulse {
-    0% {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    }
-    50% {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    }
-    100% {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    }
-}
+        #application-container .ctmk-icon {
+            width: 155px;
+            height: 46px;
+            background-color: red;
+            color: white;
+            border: 2px solid white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            animation: shadowPulse 2s infinite ease-in-out;
+        }
 
+        #application-container .home-icon {
+            width: 46px;
+            height: 46px;
+            background-color: #007bff;
+            color: white;
+            border: 2px solid white;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
 
+        #application-container .home-icon:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        /* Hiệu ứng bóng động */
+        @keyframes shadowPulse {
+            0% {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            }
+            100% {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            }
+        }
 
         #application-container .popup {
             position: fixed;
@@ -59,6 +84,7 @@
             flex-direction: column;
             padding: 20px;
             overflow: auto;
+            z-index: 1000;
         }
 
         #application-container .popup-header {
@@ -79,6 +105,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             overflow: auto;
+            z-index: 1000;
         }
 
         #application-container .form-group {
@@ -136,13 +163,24 @@
                 width: 95%;
                 height: auto;
             }
+            
+            #application-container .icons-container {
+                top: 20px;
+                right: 20px;
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
 
 <div id="application-container">
-    <div class="ctmk-icon" onclick="toggleMainPopup()">CTKM- SP GIÁ MỚI VAT 8%</div>
+    <div class="icons-container">
+        <div class="ctmk-icon" onclick="toggleMainPopup()">CTKM- SP GIÁ MỚI VAT 8%</div>
+        <div class="home-icon" onclick="goToHomePage()">
+            <i class="fas fa-home"></i>
+        </div>
+    </div>
 
     <div id="main-popup" class="popup">
         <div class="popup-header">NỖI DỤNG CHƯƠNG TRÌNH KÉO DÀI ĐẾN 31 THÁNG 10.25 </div>
@@ -153,14 +191,11 @@
                 <img src="https://cdn.imgpile.com/f/eG6wRq3_xl.jpg" alt="Chương trình khuyến mãi áp dụng đến 31.10">
             </div>
             
-			<div>
+            <div>
                 <h4>Thông báo Nhóm mỹ phẩm UVS -Dầu gội phụ bạc giá mới - VAT 8% </h4>
                 <img src="https://cdn.imgpile.com/f/U954QnA_xl.jpg" alt="Chương trình khuyến mãi 2">
             </div>
-			
-			
-			
-			
+            
             <div>
                 <h4>Báo giá bán thẵng UVS Cremelas nếu kh yêu cầu sau:</h4>
                 <img src="https://cdn.imgpile.com/f/TNmw4Fg_xl.jpg" alt="Chương trình khuyến mãi 3">
@@ -289,6 +324,11 @@
         a.href = URL.createObjectURL(blob);
         a.download = `${name}-${department}-CTMK.${date}.html`;
         a.click();
+    }
+
+    // Hàm mới để chuyển hướng về trang chủ
+    function goToHomePage() {
+        window.location.href = "https://erp-ideco.skyit.vn/#/app/dashboard/main";
     }
 </script>
 

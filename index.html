@@ -1,353 +1,313 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THÔNG TIN BÁN HÀNG</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        #application-container {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CÁC HOẠT ĐỘNG HỖ TRỢ BÁN HÀNG TRONG KỲ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#ffffff; --ink:#16201c; --ink-soft:#54625b; --line:#e3ddd0;
+    --green:#0e5b48; --green-deep:#0a4438; --green-bright:#13745b;
+    --amber:#c8913a; --amber-soft:#e7c98a; --danger:#b5453a;
+    --shadow:0 1px 2px rgba(20,32,28,.04), 0 8px 24px -12px rgba(20,32,28,.18);
+    --shadow-lg:0 24px 60px -24px rgba(10,68,56,.45); --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"Be Vietnam Pro",system-ui,sans-serif;color:var(--ink);background:var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 0%, rgba(19,116,91,.07), transparent 42%),
+      radial-gradient(circle at 92% 6%, rgba(200,145,58,.08), transparent 40%);
+    display:flex;flex-direction:column;height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  }
 
-        #application-container .icons-container {
-            position: fixed;
-            top: 65px;
-            right: 910px;
-            display: flex;
-            gap: 10px;
-        }
+  /* HEADER */
+  header{
+    position:relative;z-index:3;flex:none;
+    background:linear-gradient(125deg,var(--green-deep),var(--green) 55%,var(--green-bright));
+    color:#f3efe4;padding:16px clamp(16px,4vw,40px);
+    display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    box-shadow:0 10px 30px -16px rgba(10,68,56,.7);border-bottom:3px solid var(--amber);
+  }
+  header::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.4;
+    background-image:radial-gradient(circle at 80% -40%, rgba(231,201,138,.35), transparent 45%);}
+  .brand{display:flex;align-items:center;gap:16px;min-width:0;position:relative;z-index:1}
+  .mark{flex:none;width:46px;height:46px;border-radius:13px;background:linear-gradient(150deg,#fff,#e7c98a);
+    display:grid;place-items:center;color:var(--green-deep);font-family:"Bricolage Grotesque";font-weight:800;font-size:22px;
+    box-shadow:0 8px 18px -8px rgba(0,0,0,.4);}
+  .titles{min-width:0}
+  .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber-soft);font-weight:600;margin-bottom:2px}
+  h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(17px,2.5vw,26px);line-height:1.05;letter-spacing:-.01em;}
+  .home-btn{position:relative;z-index:1;flex:none;cursor:pointer;border:none;
+    display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:12px;
+    font-family:"Be Vietnam Pro";font-weight:700;font-size:14px;color:var(--green-deep);
+    background:linear-gradient(150deg,#fdf6e6,var(--amber-soft));box-shadow:0 10px 22px -10px rgba(200,145,58,.8);
+    transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;}
+  .home-btn:hover{transform:translateY(-2px);filter:brightness(1.04);box-shadow:0 16px 28px -10px rgba(200,145,58,.9)}
+  .home-btn:active{transform:translateY(0)}
+  .home-btn svg{width:18px;height:18px}
 
-        #application-container .ctmk-icon {
-            width: 155px;
-            height: 46px;
-            background-color: red;
-            color: white;
-            border: 2px solid white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            animation: shadowPulse 2s infinite ease-in-out;
-        }
+  /* SUBBAR */
+  .subbar{position:relative;z-index:2;flex:none;padding:12px clamp(16px,4vw,40px);
+    background:var(--paper);border-bottom:1px solid var(--line);box-shadow:0 6px 16px -14px rgba(20,32,28,.4);
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .count-pill{font-size:12px;font-weight:600;color:var(--green-deep);background:#e6efe9;border:1px solid #cfe0d6;
+    padding:6px 13px;border-radius:999px;display:inline-flex;align-items:center;gap:7px;}
+  .count-pill b{font-family:"Bricolage Grotesque";font-size:13px}
+  .count-pill svg{width:14px;height:14px}
+  .spacer{flex:1}
+  .mini{cursor:pointer;border:1.5px solid var(--line);background:#fbfaf6;color:var(--green-deep);
+    font-family:inherit;font-size:13px;font-weight:700;padding:9px 16px;border-radius:10px;
+    display:inline-flex;align-items:center;gap:7px;transition:all .15s;}
+  .mini svg{width:16px;height:16px}
+  .mini:hover{background:#eef3ef;border-color:#cfe0d6;transform:translateY(-1px)}
 
-        #application-container .home-icon {
-            width: 46px;
-            height: 46px;
-            background-color: #007bff;
-            color: white;
-            border: 2px solid white;
-            border-radius: 50%;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 20px;
-            transition: all 0.3s ease;
-        }
+  /* GALLERY */
+  .gallery-wrap{position:relative;z-index:1;flex:1;overflow-y:auto;overflow-x:hidden;
+    padding:24px clamp(16px,4vw,40px) 48px;scroll-behavior:smooth;}
+  .gallery-wrap::-webkit-scrollbar{width:13px}
+  .gallery-wrap::-webkit-scrollbar-track{background:transparent}
+  .gallery-wrap::-webkit-scrollbar-thumb{background:#cdd6cf;border:4px solid var(--bg);border-radius:999px}
+  .gallery-wrap::-webkit-scrollbar-thumb:hover{background:var(--green-bright)}
+  .gallery-wrap{scrollbar-color:#cdd6cf transparent}
+  .gallery{display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));max-width:1500px;margin:0 auto;}
 
-        #application-container .home-icon:hover {
-            background-color: #0056b3;
-            transform: scale(1.1);
-        }
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    display:flex;flex-direction:column;box-shadow:var(--shadow);
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    animation:pop .45s cubic-bezier(.2,.8,.2,1) backwards;}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:#cfe0d6}
+  @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1}}
 
-        /* Hiệu ứng bóng động */
-        @keyframes shadowPulse {
-            0% {
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            }
-            50% {
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-            }
-            100% {
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            }
-        }
+  .frame{position:relative;padding:16px;display:flex;align-items:center;justify-content:center;min-height:170px;cursor:zoom-in;
+    background:
+      linear-gradient(45deg,#f0ede4 25%,transparent 25%) -8px 0/16px 16px,
+      linear-gradient(-45deg,#f0ede4 25%,transparent 25%) -8px 0/16px 16px,
+      linear-gradient(45deg,transparent 75%,#f0ede4 75%)/16px 16px,
+      linear-gradient(-45deg,transparent 75%,#f0ede4 75%)/16px 16px,#f7f5ef;}
+  .frame img{max-width:100%;max-height:360px;width:auto;height:auto;border-radius:8px;display:block;
+    box-shadow:0 6px 20px -8px rgba(20,32,28,.35);transition:transform .25s ease;}
+  .card:hover .frame img{transform:scale(1.015)}
+  .zoom-tag{position:absolute;top:12px;right:12px;background:rgba(16,32,28,.62);color:#fff;width:30px;height:30px;
+    border-radius:9px;display:grid;place-items:center;opacity:0;transition:opacity .2s;backdrop-filter:blur(2px);}
+  .card:hover .zoom-tag{opacity:1}
+  .zoom-tag svg{width:15px;height:15px}
+  .img-loading,.img-error{width:100%;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:10px;color:var(--ink-soft);font-size:13px;text-align:center;}
+  .img-error{color:var(--danger)}
+  .spin{width:26px;height:26px;border:3px solid #d8e0d9;border-top-color:var(--green-bright);border-radius:50%;animation:sp .8s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
 
-        #application-container .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 1200px;
-            height: 750px;
-            background-color: white;
-            border: 2px solid red;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            display: none;
-            flex-direction: column;
-            padding: 20px;
-            overflow: auto;
-            z-index: 1000;
-        }
+  .meta{padding:14px 16px 16px;display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line)}
+  .name{font-family:"Bricolage Grotesque";font-weight:700;font-size:16px;line-height:1.25;word-break:break-word;color:var(--ink)}
+  .dl{width:100%;cursor:pointer;border:none;font-family:inherit;font-weight:700;font-size:13.5px;color:#fff;
+    background:linear-gradient(150deg,var(--green-bright),var(--green-deep));padding:11px;border-radius:10px;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    box-shadow:0 8px 18px -10px rgba(10,68,56,.7);transition:transform .15s,filter .15s;}
+  .dl:hover{transform:translateY(-1px);filter:brightness(1.06)}
+  .dl:active{transform:translateY(0)}
+  .dl svg{width:16px;height:16px}
+  .dl.busy{pointer-events:none;opacity:.75}
 
-        #application-container .popup-header {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+  .empty{grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--ink-soft);}
+  .empty .big{width:78px;height:78px;margin:0 auto 18px;border-radius:22px;background:#e6efe9;display:grid;place-items:center;color:var(--green-bright)}
+  .empty .big svg{width:38px;height:38px}
+  .empty h3{font-family:"Bricolage Grotesque";font-weight:700;color:var(--ink);font-size:20px;margin-bottom:8px}
+  .empty p{font-size:14px;max-width:460px;margin:0 auto;line-height:1.55}
+  .empty code{background:#eef3ef;padding:2px 7px;border-radius:6px;font-size:12.5px;color:var(--green-deep)}
 
-        #application-container .re-popup {
-            width: 1200px;
-            height: 750px;
-            background-color: white;
-            border: 2px solid black;
-            padding: 20px;
-            display: none;
-            flex-direction: column;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            overflow: auto;
-            z-index: 1000;
-        }
+  .lightbox{position:fixed;inset:0;z-index:50;background:rgba(8,18,15,.86);backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;padding:30px;animation:fade .2s ease;}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:92vw;max-height:84vh;border-radius:12px;box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}
+  .lb-bar{position:absolute;top:0;left:0;right:0;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;color:#f3efe4}
+  .lb-title{font-family:"Bricolage Grotesque";font-weight:700;font-size:17px;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+  .lb-close{cursor:pointer;border:none;background:rgba(255,255,255,.12);color:#fff;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;transition:background .15s}
+  .lb-close:hover{background:rgba(255,255,255,.25)}
+  .lb-close svg{width:20px;height:20px}
 
-        #application-container .form-group {
-            margin-bottom: 10px;
-        }
+  .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--green-deep);color:#f3efe4;padding:13px 22px;border-radius:12px;font-size:14px;font-weight:600;
+    box-shadow:0 18px 40px -16px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.2,.8,.2,1);
+    z-index:60;display:flex;align-items:center;gap:9px;border:1px solid rgba(231,201,138,.35);}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast svg{width:17px;height:17px;color:var(--amber-soft)}
+  .toast.err{background:var(--danger);border-color:rgba(255,255,255,.2)}
+  .toast.err svg{color:#fff}
 
-        #application-container .editor-toolbar {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        #application-container .editor {
-            flex-grow: 1;
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            min-height: 300px;
-            overflow-y: auto;
-        }
-
-        #application-container .editor-buttons {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        #application-container textarea {
-            resize: none;
-        }
-
-        #application-container .image-container {
-            display: block;
-        }
-
-        #application-container .image-container div {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        #application-container .image-container img {
-            max-height: calc(750px - 40px - 1cm);
-            width: auto;
-            max-width: 100%;
-            object-fit: contain;
-            margin-top: 1cm;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        @media (max-width: 768px) {
-            #application-container .popup, #application-container .re-popup {
-                width: 95%;
-                height: auto;
-            }
-            
-            #application-container .icons-container {
-                top: 20px;
-                right: 20px;
-                flex-direction: column;
-            }
-        }
-    </style>
+  @media(max-width:640px){
+    header{align-items:center}
+    h1{font-size:16px}
+    .home-btn{padding:10px 14px;font-size:13px}
+    .gallery{grid-template-columns:1fr}
+  }
+</style>
 </head>
 <body>
 
-<div id="application-container">
-    <div class="icons-container">
-        <div class="ctmk-icon" onclick="toggleMainPopup()">THÔNG TIN CHO BÁN HÀNG </div>
-        <div class="home-icon" onclick="goToHomePage()">
-            <i class="fas fa-home"></i>
-        </div>
+  <header>
+    <div class="brand">
+      <div class="mark">ID</div>
+      <div class="titles">
+        <div class="eyebrow">IDECO · Hỗ trợ kinh doanh</div>
+        <h1>CÁC HOẠT ĐỘNG HỖ TRỢ BÁN HÀNG TRONG KỲ</h1>
+      </div>
     </div>
+    <button class="home-btn" id="homeErp" title="Quay về trang ERP">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M9.5 20v-6h5v6"/></svg>
+      HOME ERP
+    </button>
+  </header>
 
-    <div id="main-popup" class="popup">
-        <div class="popup-header">CÁC NỘI DUNG THÔNG TIN BÁN HÀNG -CHÍNH SÁCH -KHUYẾN MẠI </div>
-        <button onclick="closePopup('main-popup')" style="align-self: flex-end;">Đóng</button>
-        <div class="image-container">
-                          
-                         <div>
-                <h4>CHƯƠNG TRÌNH HỖ TRỢ PHÁT TRIỂN KINH DOANH CHO NHÓM UVS </h4>
-                <img src="https://cdn.imgpile.com/f/SeU8aMq_xl.png" alt="Áp dụng đến 26/06/2026 ">
-            </div>
-               </div>   
-                     <div>
-                <h7>CHƯỜNG TRÌNH HỖ TRỢ NHÓM RIÊNG THIẾT BỊ Y TẾ LOẠI A   </h4>
-                <img src="https://cdn.imgpile.com/f/hww6ocj_xl.png" alt="Áp dụng cho đến 26/06/2026">
-            </div>  
-      <div>
-                <h7> GIỚI THIỆU SẢN PHẨM MỚI UVS ORAL ULCER GEL    </h4>
-                <img src="https://cdn.imgpile.com/f/Zf5wKPx_xl.jpg" alt="Áp dụng cho đến 26/06/2026">
-            </div>  
-                <div>
-                <h5>CHƯƠNG TRÌNH - CHÍNH SÁCH BÁN CHO THUỐC  </h4>
-                <img src="https://cdn.imgpile.com/f/Eab3DmH_xl.png" alt="Nỗ lực chia sẽ khách hàng hiểu - ủng hộ vì đây là thưởng thêm gia tăng">
-            </div>               
-               <div>
-                <h6>TÓM TẮT CHÍNH SÁCH NPP CHO NHÓM UVS GỞI KHÁCH HÀNG   </h4>
-                <img src="https://cdn.imgpile.com/f/SxvX7Iz_xl.png" alt="Kết hợp banner danh mục giá bán lẻ khi gởi kèm banner này cho khách hàng">
-          
-        <button onclick="showPopup('re-popup')">Bấm vào báo cáo nghiệm thụ chương trình KM kết thúc</button>
-    </div>
+  <div class="subbar">
+    <span class="count-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/><path d="m21 15-5-5L5 21"/></svg> <b id="countNum">0</b>&nbsp;ảnh</span>
+    <div class="spacer"></div>
+    <button class="mini" id="dlAll" title="Tải tất cả ảnh về máy">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+      Tải tất cả
+    </button>
+  </div>
 
-    <div id="re-popup" class="re-popup">
-        <div class="popup-header">Báo cáo nghiệm thu kết thúc khuyến mại</div>
-        <form id="report-form">
-            <div class="form-group">
-                <label for="name">Họ Tên :</label>
-                <input type="text" id="name" name="name" style="width: 100%;">
-            </div>
-            <div class="form-group">
-                <label for="department">Bộ phận:</label>
-                <input type="text" id="department" name="department" style="width: 100%;">
-            </div>
-            <div class="form-group">
-                <label for="date">Ngày lập:</label>
-                <input type="date" id="date" name="date" style="width: 100%;">
-            </div>
-            <div class="form-group">
-                <label for="program">Báo cáo giải trình kết thúc CTMK :</label>
-                <textarea id="program" name="program" style="width: 100%; height: 100px;"></textarea>
-            </div>
-        </form>
-        <div class="editor-toolbar">
-            <select onchange="execCommand('fontName', this.value)">
-                <option value="Arial">Arial</option>
-                <option value="Times New Roman">Times New Roman</option>
-                <option value="Verdana">Verdana</option>
-            </select>
-            <select onchange="execCommand('fontSize', this.value)">
-                <option value="1">10px</option>
-                <option value="2">13px</option>
-                <option value="3">16px</option>
-                <option value="4">18px</option>
-                <option value="5">24px</option>
-            </select>
-            <button onclick="execCommand('bold')">B</button>
-            <button onclick="execCommand('italic')">I</button>
-            <button onclick="execCommand('underline')">U</button>
-            <button onclick="execCommand('strikeThrough')">S</button>
-            <button onclick="execCommand('justifyLeft')">Left</button>
-            <button onclick="execCommand('justifyCenter')">Center</button>
-            <button onclick="execCommand('justifyRight')">Right</button>
-            <button onclick="execCommand('insertOrderedList')">1.</button>
-            <button onclick="execCommand('insertUnorderedList')">•</button>
-            <input type="color" onchange="execCommand('foreColor', this.value)">
-        </div>
-        <div class="editor" contenteditable="true">Nhập nội dung báo cáo tại đây...</div>
-        <div class="editor-buttons">
-            <button onclick="saveReport()">Lưu JSON</button>
-            <button onclick="loadReport()">Mở JSON</button>
-            <button onclick="exportHTML()">Xuất HTML</button>
-            <button onclick="closePopup('re-popup')">Đóng</button>
-        </div>
+  <main class="gallery-wrap">
+    <div class="gallery" id="gallery"></div>
+  </main>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lb-bar">
+      <span class="lb-title" id="lbTitle"></span>
+      <button class="lb-close" id="lbClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     </div>
-</div>
+    <img id="lbImg" alt="">
+  </div>
+
+  <div class="toast" id="toast"></div>
 
 <script>
-    let isMainPopupVisible = false;
+/* =====================================================================
+   DANH SÁCH ẢNH  —  chỉ cần sửa ở khối này để thêm / bớt / đổi ảnh.
+   Mỗi ảnh: { name: "Tên hiển thị", url: "Link ảnh trực tiếp" }
+   ===================================================================== */
+const IMAGES = [
+  { name: "Hoạt động hỗ trợ bán hàng trong kỳ", url: "https://cdn.imgpile.com/f/hww6ocj_xl.png" },
+  { name: "Chương trình khuyến mãi tháng 6 nhóm UVS ", url: "https://cdn.imgpile.com/f/SeU8aMq_xl.png" },
+  { name: "CT giới thiệu UVS ORAL ULCER  mới",        url: "https://cdn.imgpile.com/f/Zf5wKPx_xl.jpg" },
+    { name: "TỒNG DANH MỤC NHÓM KHÔNG PHẢI THUỐC - GIÁ NIÊM YẾT",        url: "https://cdn.imgpile.com/f/zpqXai3_xl.png" },
+  
+];
 
-    function toggleMainPopup() {
-        const mainPopup = document.getElementById('main-popup');
-        isMainPopupVisible = !isMainPopupVisible;
-        mainPopup.style.display = isMainPopupVisible ? 'flex' : 'none';
-    }
+const ERP_URL = "https://erp-ideco.skyit.vn/#/app/dashboard/main";
+const $ = s => document.querySelector(s);
 
-    function showPopup(id) {
-        const popup = document.getElementById(id);
-        if (popup) {
-            popup.style.display = 'flex';
-        } else {
-            console.error(`Popup with ID "${id}" not found.`);
-        }
-    }
+function escapeHtml(s){ return (s||"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fileNameFor(it){
+  let base = (it.name||"hinh-anh").replace(/[\\/:*?"<>|]+/g," ").trim() || "hinh-anh";
+  const m = (it.url.split("?")[0]).match(/\.(png|jpe?g|gif|webp|bmp|svg|avif)$/i);
+  const ext = m ? m[0].toLowerCase() : ".png";
+  return base.toLowerCase().endsWith(ext) ? base : base + ext;
+}
 
-    function closePopup(id) {
-        const popup = document.getElementById(id);
-        if (popup) {
-            popup.style.display = 'none';
-        } else {
-            console.error(`Popup with ID "${id}" not found.`);
-        }
-    }
+let toastT;
+function toast(msg, isErr){
+  const t=$("#toast");
+  t.innerHTML = (isErr
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>') + escapeHtml(msg);
+  t.className = "toast show" + (isErr?" err":"");
+  clearTimeout(toastT);
+  toastT = setTimeout(()=> t.className="toast"+(isErr?" err":""), 2600);
+}
 
-    function execCommand(command, value = null) {
-        document.execCommand(command, false, value);
-    }
+function render(){
+  const g = $("#gallery");
+  $("#countNum").textContent = IMAGES.length;
 
-    function saveReport() {
-        const content = document.querySelector('.editor').innerHTML;
-        const blob = new Blob([JSON.stringify({ content })], { type: 'application/json' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'report.json';
-        a.click();
-    }
+  if(!IMAGES.length){
+    g.innerHTML = `<div class="empty">
+      <div class="big"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="m21 15-4.5-4.5L5 21"/></svg></div>
+      <h3>Chưa có ảnh nào</h3>
+      <p>Mở file, tìm khối <code>const IMAGES = [...]</code> ở đầu phần mã và thêm link ảnh vào đó.</p>
+    </div>`;
+    return;
+  }
 
-    function loadReport() {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'application/json';
-        input.onchange = (e) => {
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = () => {
-                const data = JSON.parse(reader.result);
-                document.querySelector('.editor').innerHTML = data.content;
-            };
-            reader.readAsText(file);
-        };
-        input.click();
-    }
+  g.innerHTML = IMAGES.map((it,idx)=>`
+    <article class="card" style="animation-delay:${Math.min(idx*45,400)}ms">
+      <div class="frame" data-zoom="${idx}">
+        <div class="img-loading"><div class="spin"></div>Đang tải ảnh…</div>
+        <span class="zoom-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+      </div>
+      <div class="meta">
+        <div class="name">${escapeHtml(it.name)}</div>
+        <button class="dl" data-dl="${idx}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+          Tải ảnh về
+        </button>
+      </div>
+    </article>`).join("");
 
-    function exportHTML() {
-        const name = document.getElementById('name').value || 'NoName';
-        const department = document.getElementById('department').value || 'NoDepartment';
-        const date = document.getElementById('date').value || 'NoDate';
-        const content = document.querySelector('.editor').innerHTML;
-        const blob = new Blob([content], { type: 'text/html' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `${name}-${department}-CTMK.${date}.html`;
-        a.click();
-    }
+  IMAGES.forEach((it,idx)=>{
+    const frame = g.querySelector(`.frame[data-zoom="${idx}"]`);
+    if(!frame) return;
+    const img = new Image();
+    img.alt = it.name;
+    img.onload = ()=>{ const ph=frame.querySelector(".img-loading"); if(ph) ph.remove(); frame.insertBefore(img, frame.firstChild); };
+    img.onerror = ()=>{ frame.style.cursor="default";
+      frame.innerHTML = `<div class="img-error"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Không tải được ảnh.<br>Kiểm tra lại link.</div>`; };
+    img.src = it.url;
+  });
+}
 
-    // Hàm mới để chuyển hướng về trang chủ
-    function goToHomePage() {
-        window.location.href = "https://erp-ideco.skyit.vn/#/app/dashboard/main";
-    }
+async function downloadOne(it, btn){
+  if(btn){ btn.classList.add("busy"); btn.querySelector("svg").style.display="none"; }
+  try{
+    const res = await fetch(it.url, { mode:"cors" });
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href=url; a.download=fileNameFor(it);
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1500);
+    toast("Đã tải: "+fileNameFor(it));
+  }catch(e){
+    window.open(it.url, "_blank", "noopener");
+    toast("Mở ảnh ở tab mới để lưu (link không cho tải trực tiếp).", true);
+  }finally{
+    if(btn){ btn.classList.remove("busy"); btn.querySelector("svg").style.display=""; }
+  }
+}
+
+async function downloadAll(){
+  if(!IMAGES.length){ toast("Chưa có ảnh để tải.", true); return; }
+  toast(`Bắt đầu tải ${IMAGES.length} ảnh…`);
+  for(const it of IMAGES){ await downloadOne(it, null); await new Promise(r=>setTimeout(r,600)); }
+}
+
+function openLightbox(it){ $("#lbImg").src=it.url; $("#lbTitle").textContent=it.name; $("#lightbox").classList.add("open"); }
+function closeLightbox(){ $("#lightbox").classList.remove("open"); $("#lbImg").src=""; }
+
+$("#homeErp").addEventListener("click", ()=>{ window.location.href = ERP_URL; });
+$("#dlAll").addEventListener("click", downloadAll);
+$("#gallery").addEventListener("click", e=>{
+  const dl = e.target.closest("[data-dl]");
+  const zoom = e.target.closest("[data-zoom]");
+  if(dl){ downloadOne(IMAGES[+dl.dataset.dl], dl); return; }
+  if(zoom && zoom.querySelector("img")){ openLightbox(IMAGES[+zoom.dataset.zoom]); }
+});
+$("#lbClose").addEventListener("click", closeLightbox);
+$("#lightbox").addEventListener("click", e=>{ if(e.target.id==="lightbox") closeLightbox(); });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeLightbox(); });
+
+render();
 </script>
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-

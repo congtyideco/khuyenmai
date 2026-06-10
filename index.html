@@ -200,7 +200,7 @@ const IMAGES = [
   { name: "KHUYẾN MẠI 2 SẢN PHẨM UVS THIẾT BỊ Y TẾ", url: "https://cdn.imgpile.com/f/FxTjUFb_xl.png" },
   { name: "Chương trình khuyến mãi tháng 6 nhóm UVS ", url: "https://cdn.imgpile.com/f/SeU8aMq_xl.png" },
   { name: "CT giới thiệu UVS ORAL ULCER  mới",        url: "https://cdn.imgpile.com/f/Zf5wKPx_xl.jpg" },
-    { name: "TỒNG DANH MỤC NHÓM KHÔNG PHẢI THUỐC - GIÁ NIÊM YẾT",        url: "https://cdn.imgpile.com/f/zpqXai3_xl.png" },
+    { name: "TỒNG DANH MỤC NHÓM KHÔNG PHẢI THUỐC - GIÁ NIÊM YẾT",        url: "https://cdn.imgpile.com/f/bLA6o2g_xl.png" },
   
 ];
 
@@ -222,8 +222,7 @@ function toast(msg, isErr){
     ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>'
     : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>') + escapeHtml(msg);
   t.className = "toast show" + (isErr?" err":"");
-  clearTimeout(toastT);
-  toastT = setTimeout(()=> t.className="toast"+(isErr?" err":""), 2600);
+  clearTimeout(toastT);  toastT = setTimeout(()=> t.className="toast"+(isErr?" err":""), 2600);
 }
 
 function render(){
